@@ -5,12 +5,15 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config webpack.$NODE_ENV.js",
-    "start": "node dist/server"
+    "start": "node dist/server",
+    "migrate": "node-pg-migrate -m ./src/migrations -j ts"
   },
   "dependencies": {
     "apollo-server": "^2.18.2",
-    "firebase-admin": "^9.3.0",
-    "graphql": "^15.3.0"
+    "graphql": "^15.3.0",
+    "knex": "^0.21.12",
+    "node-pg-migrate": "^5.9.0",
+    "pg": "^8.4.2"
   },
   "devDependencies": {
     "@types/webpack-env": "^1.15.3",
