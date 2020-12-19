@@ -4,7 +4,6 @@ import { MigrationBuilder, ColumnDefinitions, PgType } from 'node-pg-migrate';
 export const shorthands: ColumnDefinitions | undefined = undefined;
 
 export async function up(pgm: MigrationBuilder): Promise<void> {
-    pgm.createType('accountType', ['Admin', 'User']);
     pgm.createTable('users', {
         id: {
             type: PgType.UUID,
@@ -17,13 +16,13 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
             notNull: true,
         },
         accountType: {
-            type: 'accountType',
+            type: '"accountType"',
             default: 'User',
             notNull: true
         },
         createdAt: {
             type: PgType.TIMESTAMP_WITHOUT_TIME_ZONE,
-            default: 'current_timestamp',
+            default: pgm.func('(NOW() at time zone \'utc\')'),
             notNull: true,
         },
         updatedAt: {
